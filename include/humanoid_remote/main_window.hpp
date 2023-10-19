@@ -19,7 +19,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <QKeyEvent>
 #include <string>
-
+#include <iostream>
+#include <fstream>
 /*****************************************************************************
 ** Namespace
 *****************************************************************************/
@@ -59,20 +60,36 @@ public:
     ~MainWindow();
 
     void closeEvent(QCloseEvent *event); // Overloaded function
-
+    void readRecordHu1();
+    void readRecordHu2();
 public Q_SLOTS:
     void keyPressEvent(QKeyEvent *e);
 
     void timerLoop();
+    void recordLoop();
+
+    void on_pushButton_reset_clicked();
+    void on_pushButton_start_clicked();
+    void on_pushButton_read_clicked();
+    void on_pushButton_stop_clicked();
+    void on_pushButton_record_clicked();
 
 private:
     Ui::MainWindowDesign ui;
     QNode qnode;
     int m_cnt;
+    ofstream foutHu1;
+    ofstream foutHu2;
+    vector<DIR3> mRecotdHu1;
+    vector<DIR3> mRecotdHu2;
     DIR3 mStateHu1;
     DIR3 mStateHu2;
 
+    bool Recflag=false;
+
     QTimer *m_timer;
+    QTimer *m_REC;
+
 
 };
 
